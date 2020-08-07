@@ -3,6 +3,10 @@ import './Metronome.css';
 import click1 from './audio/click1.wav';
 import click2 from './audio/click2.wav';
 
+import bass from './test/bass.mp3';
+import hat from './test/hat.mp3';
+import snare from './test/snare.mp3';
+
 class Metronome extends Component {
 
   constructor(props){
@@ -16,6 +20,10 @@ class Metronome extends Component {
     };
     this.click1 = new Audio(click1);
     this.click2 = new Audio(click2);
+
+    this.bass = new Audio(bass);
+    this.hat = new Audio(hat);
+    this.snare = new Audio(snare);
   }
 
   handleBpmChange = event => {
@@ -68,6 +76,20 @@ class Metronome extends Component {
     }));
   }
 
+  sound = (event) => {
+    if(event.keyCode === 81){
+      this.bass.play()
+    }
+  }
+
+  sound2 = () => {
+      this.hat.play()
+  }
+
+  sound3 = () => {
+      this.snare.play()
+  }
+
   render(){
     const {bpm, playing} = this.state;
 
@@ -78,6 +100,12 @@ class Metronome extends Component {
         <input type="range" min="60" max="240" value={bpm} onChange={this.handleBpmChange}/>
       </div>
         <button onClick={this.startStop} >{(playing ? 'Stop' : 'Start')}</button>
+        <div>
+          <span><p></p></span>
+          <button id="1" onKeyDown={this.sound} onClick={this.sound} className="button">kick</button>
+          <button id="2" onClick={this.sound2} className="button">hat</button>
+          <button id="3" onClick={this.sound3} className="button">snare</button>
+        </div>
       </div>
     );
   }
